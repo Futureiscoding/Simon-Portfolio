@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="200" fill="url(#grad)"/>
+  <polygon points="180,70 180,130 230,100" fill="white" opacity="0.9"/>
+  <circle cx="200" cy="100" r="50" fill="none" stroke="white" stroke-width="3" opacity="0.9"/>
+  <text x="200" y="170" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" opacity="0.8">Video Coming Soon</text>
+</svg>
