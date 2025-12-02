@@ -18,6 +18,7 @@
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
+    --project-media-height: 200px;
 }
 
 html {
@@ -365,11 +366,7 @@ main {
 .projects-section {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 2rem 0;
-}
-
-.projects-section:last-of-type {
-    padding-bottom: 2rem;
+    padding: 2rem;
 }
 
 .section-title {
@@ -382,7 +379,7 @@ main {
 }
 
 .project-image {
-    height: 200px;
+    height: var(--project-media-height);
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
 }
 
@@ -400,12 +397,12 @@ main {
 .project-video {
     position: relative;
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    min-height: 200px;
+    min-height: var(--project-media-height);
 }
 
 .project-video video {
     width: 100%;
-    height: 200px;
+    height: var(--project-media-height);
     object-fit: cover;
     display: block;
     background: #000;
