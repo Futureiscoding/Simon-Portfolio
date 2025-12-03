@@ -686,60 +686,25 @@ footer {
     }
 }
 
-/* Form Styles */
-.form-label {
-    font-weight: 500;
-    color: var(--text-color);
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-.form-control {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: var(--transition);
-    background-color: var(--background);
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.form-textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-.form-submit-button {
-    width: 100%;
-    padding: 0.875rem 1.5rem;
-    font-size: 1rem;
-}
-
-.form-status {
+/* Form Note Styles */
+.form-note {
     margin-top: 1rem;
     padding: 0.75rem;
+    background: #fef3c7;
     border-radius: 8px;
-    text-align: center;
-    display: none;
+    border: 1px solid #f59e0b;
+    color: var(--text-color);
+    line-height: 1.5;
 }
 
-.form-status-success {
-    display: block;
-    background-color: rgba(16, 185, 129, 0.1);
-    color: var(--success-color);
-    border: 1px solid var(--success-color);
+.form-note code {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    font-family: monospace;
 }
 
-.form-status-error {
-    display: block;
-    background-color: rgba(239, 68, 68, 0.1);
-    color: var(--error-color);
-    border: 1px solid var(--error-color);
+.form-note a {
+    color: var(--primary-color);
+    text-decoration: underline;
 }
