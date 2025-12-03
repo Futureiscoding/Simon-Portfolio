@@ -15,6 +15,7 @@
     --background-alt: #f3f4f6;
     --border-color: #e5e7eb;
     --success-color: #10b981;
+    --error-color: #ef4444;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
