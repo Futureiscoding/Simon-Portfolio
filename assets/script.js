@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     event.target.reset();
                 } else {
                     var responseData = await response.json();
-                    if (responseData.errors) {
+                    if (responseData.errors && Array.isArray(responseData.errors)) {
                         status.textContent = responseData.errors.map(function(error) { return error.message; }).join(', ');
                     } else {
                         status.textContent = 'Oops! There was a problem submitting your form.';
