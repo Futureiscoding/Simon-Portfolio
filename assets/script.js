@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Contact Form Handling
+    // Contact Form Handling with Formspree
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         const formStatus = contactForm.querySelector('.form-status');
@@ -55,47 +55,68 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Show loading state
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Sending...';
-            }
-            if (formStatus) {
-                formStatus.textContent = '';
-                formStatus.className = 'form-status';
+            // Get form action URL
+            const formAction = contactForm.getAttribute('action');
+            
+            // Check if Formspree is configured
+            if (!formAction || formAction.includes('{your-form-id}')) {
+                alert('Form submission is not configured yet. Please set up your Formspree form ID.');
+                console.log('Form data (not sent):', data);
+                return;
             }
 
-            // Submit to Formspree via AJAX
-            fetch(contactForm.action, {
+            // Submit form via fetch API
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+
+            // Create AbortController for timeout
+            const TIMEOUT_MS = 30000; // 30 second timeout
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+            fetch(formAction, {
                 method: 'POST',
                 body: formData,
                 headers: {
                     'Accept': 'application/json'
-                }
+                },
+                signal: controller.signal
             })
-            .then(function(response) {
+            .then(response => {
+                clearTimeout(timeoutId);
                 if (response.ok) {
-                    if (formStatus) {
-                        formStatus.textContent = 'Thank you for your message! I will get back to you soon.';
-                        formStatus.className = 'form-status form-status--success';
-                    }
+                    alert('Thank you for your message! I will get back to you soon.');
                     contactForm.reset();
-                } else {
-                    throw new Error('Form submission failed');
+                    return;
                 }
+                return response.json()
+                    .then(data => {
+                        if (data.errors) {
+                            throw new Error(data.errors.map(error => error.message).join(', '));
+                        }
+                        throw new Error('There was an error sending your message. Please try again.');
+                    })
+                    .catch(parseError => {
+                        // If JSON parsing fails or error was thrown above
+                        throw parseError;
+                    });
             })
-            .catch(function(error) {
-                if (formStatus) {
-                    formStatus.textContent = 'There was a problem sending your message. Please try again.';
-                    formStatus.className = 'form-status form-status--error';
-                }
+            .catch(error => {
+                clearTimeout(timeoutId);
                 console.error('Form submission error:', error);
-            })
-            .finally(function() {
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Send Message';
+                if (error.name === 'AbortError') {
+                    alert('Request timed out. Please check your connection and try again.');
+                } else if (error.message) {
+                    alert(error.message);
+                } else {
+                    alert('There was an error sending your message. Please try again.');
                 }
+            })
+            .finally(() => {
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
             });
         });
     }
