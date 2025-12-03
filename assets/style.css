@@ -684,3 +684,33 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* Form Submit Button */
+.form-submit-btn {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+}
+
+.form-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Form Status Messages */
+.form-status {
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    min-height: 1.4em;
+}
+
+.form-status--success {
+    color: var(--success-color);
+    font-weight: 500;
+}
+
+.form-status--error {
+    color: #dc2626;
+    font-weight: 500;
+}
