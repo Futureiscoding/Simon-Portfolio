@@ -65,7 +65,7 @@
             </div>
 
             <div class="contact-form-container">
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/{your-form-id}" method="POST">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required>
@@ -84,6 +84,10 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
+                <p class="form-note">
+                    <small>Note: To receive form submissions, replace <code>{your-form-id}</code> in the form action with your Formspree form ID. 
+                    <a href="https://formspree.io/" target="_blank" rel="noopener noreferrer">Sign up at Formspree</a> to get your form ID.</small>
+                </p>
             </div>
         </section>
     </main>
