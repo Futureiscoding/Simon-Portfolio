@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Contact Form Handling with Formspree
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
+        const formStatus = contactForm.querySelector('.form-status');
+        const submitBtn = contactForm.querySelector('.form-submit-btn');
+
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -28,21 +31,27 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(contactForm);
             const data = {
                 name: formData.get('name'),
-                email: formData.get('email'),
+                email: formData.get('_replyto'),
                 subject: formData.get('subject'),
                 message: formData.get('message')
             };
 
             // Simple validation
             if (!data.name || !data.email || !data.subject || !data.message) {
-                alert('Please fill in all fields.');
+                if (formStatus) {
+                    formStatus.textContent = 'Please fill in all fields.';
+                    formStatus.className = 'form-status form-status--error';
+                }
                 return;
             }
 
             // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(data.email)) {
-                alert('Please enter a valid email address.');
+                if (formStatus) {
+                    formStatus.textContent = 'Please enter a valid email address.';
+                    formStatus.className = 'form-status form-status--error';
+                }
                 return;
             }
 
