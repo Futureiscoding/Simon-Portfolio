@@ -18,39 +18,49 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Contact Form Handling
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+    // Contact Form Handling with Formspree
+    const form = document.getElementById('my-form');
+    if (form) {
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const status = document.getElementById('my-form-status');
+            const data = new FormData(event.target);
             
-            // Get form data
-            const formData = new FormData(contactForm);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                subject: formData.get('subject'),
-                message: formData.get('message')
-            };
-
-            // Simple validation
-            if (!data.name || !data.email || !data.subject || !data.message) {
-                alert('Please fill in all fields.');
-                return;
+            // Reset status classes
+            status.classList.remove('form-status-success', 'form-status-error');
+            status.textContent = '';
+            
+            try {
+                const response = await fetch(event.target.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    status.textContent = 'Thanks for your submission!';
+                    status.classList.add('form-status-success');
+                    form.reset();
+                } else {
+                    const responseData = await response.json();
+                    if (responseData.errors) {
+                        status.textContent = responseData.errors.map(function(error) {
+                            return error.message;
+                        }).join(', ');
+                    } else {
+                        status.textContent = 'Oops! There was a problem submitting your form.';
+                    }
+                    status.classList.add('form-status-error');
+                }
+            } catch (error) {
+                status.textContent = 'Oops! There was a problem submitting your form.';
+                status.classList.add('form-status-error');
             }
-
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(data.email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-
-            // For demonstration purposes - in production, this would send to a server
-            console.log('Form submitted:', data);
-            alert('Thank you for your message! I will get back to you soon.');
-            contactForm.reset();
-        });
+        }
+        
+        form.addEventListener('submit', handleSubmit);
     }
 
     // Smooth scroll for anchor links
