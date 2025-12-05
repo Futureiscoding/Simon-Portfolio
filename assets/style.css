@@ -715,3 +715,18 @@ footer {
     color: var(--primary-color);
     text-decoration: underline;
 }
+
+/* About Page Image - Full Length Override */
+.about-image {
+  overflow: visible !important;
+}
+
+.about-image img {
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  display: block;
+  margin: 0 auto;
+}
