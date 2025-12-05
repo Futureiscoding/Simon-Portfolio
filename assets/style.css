@@ -708,3 +708,13 @@ footer {
     color: var(--primary-color);
     text-decoration: underline;
 }
+
+/* About page image - display full length without cropping */
+.about-image img {
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block;
+    margin: 0 auto;
+}
